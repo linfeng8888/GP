@@ -1,11 +1,21 @@
-name: Hello Actions
+name: Python Sanity Check
 
 on:
   workflow_dispatch:
 
 jobs:
-  hello:
+  python-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Say hello
-        run: echo "Hello GitHub Actions"
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Check Python
+        run: |
+          python --version
+          python - <<EOF
+          print("Python is running fine")
+          EOF
